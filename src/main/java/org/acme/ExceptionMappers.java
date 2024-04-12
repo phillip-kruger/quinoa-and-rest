@@ -10,5 +10,4 @@ public class ExceptionMappers {
     public Response handleExceptions(WebApplicationException exception) {
         return Response.fromResponse(exception.getResponse()).entity("ExceptionMappers was here").build();
     }
-
 }
