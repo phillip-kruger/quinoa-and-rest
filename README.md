@@ -1,6 +1,6 @@
 # quinoa-and-rest
 
-## case 6 
+## case 6 old version
 
 Here we server Quinoa and REST on naked (/). (Bad practise, two technologies on the same root)
 - Added custom exception mapper
@@ -11,10 +11,8 @@ Here we server Quinoa and REST on naked (/). (Bad practise, two technologies on 
 - http://localhost:8080/ - Home page index.html (served by Quinoa) &check;
 - http://localhost:8080/index.html - Home page index.html (served by Quinoa) &check;
 - http://localhost:8080/quinoa.html - Quinoa page quinoa.html (served by Quinoa) &check;
-- **http://localhost:8080/foo - 404 page (served by REST with Exception Mapper)** &check;
+- http://localhost:8080/foo - Home page index.html (served by Quinoa) &check; you get what you want due to resumeOn404 hack
 - http://localhost:8080/api/hello - REST Response (server by REST) &check;
-- **http://localhost:8080/api/foo - 404 page (served by REST with Exception Mapper)** &check;
+- **http://localhost:8080/api/foo - Home page index.html (served by Quinoa)** &cross;
 
-All resources under / is REST and thus the exception Mapper will kick in for any exception, including not-found. 
-
-(This might not be what you want, but it's correct. You problaby want case 3)
+The old way (ResumeOn404) made all urls redirect on a 404. Even in the case where rest on /api. This is wrong.
