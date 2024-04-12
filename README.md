@@ -1,6 +1,6 @@
 # quinoa-and-rest
 
-## case 2 
+## case 5 
 
 Here we server Quinoa and REST on naked (/). (Bad practise, two technologies on the same root)
 - No custom exception mapper
@@ -17,3 +17,5 @@ Here we server Quinoa and REST on naked (/). (Bad practise, two technologies on 
 
 
 /api/foo is not found by REST, but passed on, as there are No exception mapper, and other extensions that serve from /
+
+(This might not be what you want, but it's correct. You problaby want case 2)
