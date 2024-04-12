@@ -5,20 +5,22 @@ This repo contain multiple branches, each containing the code for a certain case
 We will start with case 3 and 6 as they are relevant to https://github.com/quarkiverse/quarkus-quinoa/issues/666
 
  
-## Case 3 - The correct usage to do this.
+## Case 3 - The correct way to do this.
 
 When you decide to serve 2 technologies over HTTP (REST and Quinoa) the correct way to do it would be to have them serving from different 
-root. Example, you might choose to serve all WebPages from `/` and all REST from `/api`. This way the technologies do not "step on each other's toes"
+roots. Example, you might choose to serve all WebPages from `/` and all REST from `/api`. This way the technologies do not "step on each other's toes"
 
-So, in case 3 we server Quinoa on naked (/) and all REST on /api (via `quarkus.rest.path=/api`)
+So, in case 3 we server Quinoa on naked (`/`) and all REST on `/api` (via `quarkus.rest.path=/api`)
 
-- Added custom exception mapper
-- SPA routing turned on (via `quarkus.quinoa.enable-spa-routing=true`)
+We also:
+
+- Added custom exception mapper, and
+- Turned on SPA routing (via `quarkus.quinoa.enable-spa-routing=true`)
 
 ### The old way (Quarkus 3.8)
 
 We had this Build item called ResumeOn404, that is used when the user enable SPA in Quinoa. 
-This was needed because NotFound was handled by each webextension themselves, and not by the underlying VertX.
+This was needed because NotFound was handled by each extension themselves, and not by the underlying VertX.
 
 #### Results:
 
@@ -30,13 +32,13 @@ This was needed because NotFound was handled by each webextension themselves, an
 - **http://localhost:8080/api/foo - Home page index.html (served by Quinoa)** &cross;
 
 The old way (ResumeOn404) made all urls redirect on a 404. 
-Even in the case where rest on /api (as in explicitly via `quarkus.rest.path=/api`). **This is wrong.**
+Even in the case where rest on `/api` (as in explicitly via `quarkus.rest.path=/api`). **This is wrong.**
 
 For detail and code see https://github.com/phillip-kruger/quinoa-and-rest/tree/case3-old
 
 ### The new way (Quarkus 3.9)
 
-No we moved the 404 Handling to the underlying Vertx. No need for ResumeOn404 anymore.
+Now we moved the 404 Handling to the underlying Vertx. No need for ResumeOn404 anymore.
 
 #### Results:
 
@@ -54,15 +56,16 @@ For detail and code see https://github.com/phillip-kruger/quinoa-and-rest/tree/c
 This is the same cenario than case 3, except we do not have `quarkus.rest.path=/api` and now both technologies are using `/` as their root.
 This should not be recomended.
 
-So in case 6 we server Quinoa and REST on naked (/).
+So in case 6 we serve Quinoa and REST on naked (/).
 
+We also: 
 - Added custom exception mapper
-- SPA routing turned on (via `quarkus.quinoa.enable-spa-routing=true`)
+- Turned on SPA routing (via `quarkus.quinoa.enable-spa-routing=true`)
 
 ### The old way (Quarkus 3.8)
 
 We had this Build item called ResumeOn404, that is used when the user enable SPA in Quinoa. 
-This was needed because NotFound was handled by each webextension themselves, and not by the underlying VertX.
+This was needed because NotFound was handled by each extension themselves, and not by the underlying VertX.
 
 #### Results:
 
@@ -80,7 +83,7 @@ For detail and code see https://github.com/phillip-kruger/quinoa-and-rest/tree/c
 
 ### The new way (Quarkus 3.9)
 
-No we moved the 404 Handling to the underlying Vertx. No need for ResumeOn404 anymore.
+Now we moved the 404 Handling to the underlying Vertx. No need for ResumeOn404 anymore.
 
 #### Results:
 
